@@ -1,5 +1,7 @@
 package com.technipixl.filrouge.ui.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
@@ -7,12 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.technipixl.filrouge.R
 import com.technipixl.filrouge.databinding.FragmentFoodBinding
 import com.technipixl.filrouge.network.models.BusinessModel
 import com.technipixl.filrouge.network.models.BusinessResponse
@@ -27,11 +33,20 @@ import kotlinx.coroutines.withContext
 class FoodFragment : Fragment(),
     NetworkFragment<BusinessResponse>,
     ListFragment<BusinessModel, BusinessAdapter> {
-    private val callback = OnMapReadyCallback { googleMap ->
+    companion object {
+        const val LOCATION_PERMISSION_REQUEST_CODE = 123
+    }
 
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    private lateinit var map :GoogleMap
+    private val callback = OnMapReadyCallback { googleMap ->
+        map = googleMap
+        map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
+        tracklocation()
+
+       // val sydney = LatLng(-34.0, 151.0)
+        //googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+       // googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     private var binding: FragmentFoodBinding? = null
@@ -53,6 +68,8 @@ class FoodFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
         loadData()
     }
 
@@ -91,6 +108,28 @@ class FoodFragment : Fragment(),
                 }
             }
         }
+    }
+    private fun tracklocation(){
+        if (ActivityCompat.checkSelfPermission (requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ), LOCATION_PERMISSION_REQUEST_CODE
+            )
+
+            return
+        }
+        map.isMyLocationEnabled = true
     }
 
     override fun displayError() {
