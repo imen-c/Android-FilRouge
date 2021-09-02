@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.technipixl.filrouge.databinding.FragmentFoodBinding
 import com.technipixl.filrouge.network.models.BusinessModel
 import com.technipixl.filrouge.network.models.BusinessResponse
@@ -23,6 +27,12 @@ import kotlinx.coroutines.withContext
 class FoodFragment : Fragment(),
     NetworkFragment<BusinessResponse>,
     ListFragment<BusinessModel, BusinessAdapter> {
+    private val callback = OnMapReadyCallback { googleMap ->
+
+        val sydney = LatLng(-34.0, 151.0)
+        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
 
     private var binding: FragmentFoodBinding? = null
     private val service by lazy { BusinessServiceImpl() }

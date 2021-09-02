@@ -28,6 +28,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/headerGuideline"
         android:background="@color/dark_blue">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.fragments.FoodFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
     </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
