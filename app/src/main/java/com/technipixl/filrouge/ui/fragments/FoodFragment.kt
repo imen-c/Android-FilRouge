@@ -2,22 +2,24 @@ package com.technipixl.filrouge.ui.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory.*
+import com.squareup.picasso.Picasso
 import com.technipixl.filrouge.R
 import com.technipixl.filrouge.databinding.FragmentFoodBinding
 import com.technipixl.filrouge.network.models.BusinessModel
@@ -30,9 +32,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
+
 class FoodFragment : Fragment(),
     NetworkFragment<BusinessResponse>,
     ListFragment<BusinessModel, BusinessAdapter> {
+
+
+    private
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 123
     }
@@ -40,13 +47,16 @@ class FoodFragment : Fragment(),
     private lateinit var map :GoogleMap
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        map.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         tracklocation()
+        val base = LatLng(50.59,5.56)
 
-       // val sydney = LatLng(-34.0, 151.0)
-        //googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-       // googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+        //CameraUpdateFactory.newLatLngZoom(base, 16f)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(base))
+        googleMap.setMaxZoomPreference(15.0f)
+
     }
 
     private var binding: FragmentFoodBinding? = null
@@ -68,9 +78,11 @@ class FoodFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapsFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         loadData()
+
+
     }
 
     override fun onDestroy() {
@@ -99,16 +111,45 @@ class FoodFragment : Fragment(),
                 BusinessServiceImpl.SearchTerms.FOOD.value,
                 BusinessServiceImpl.defaultCoordinates.latitude,
                 BusinessServiceImpl.defaultCoordinates.longitude
+
+
             )
+
+
+
+
             withContext(Dispatchers.Main) {
+
                 if (response.isSuccessful) {
+
                     displayResults(response.body())
+
+                    response.body()?.businesses?.forEach{
+                       // listCoordonne.add((it))
+                        val imageUrl  = it.imageUrl
+                       // val bmp = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
+
+                      // Picasso.get().load(imageUrl)
+
+                        val position = LatLng(it.coordinatesModel.latitude,it.coordinatesModel.longitude)
+                        map.addMarker(
+                            MarkerOptions()
+                            .position(position)
+                            .title("Marker")
+                               //.icon(BitmapDescriptorFactory.fromBitmap(bmp))
+                        )
+
+
+                    }
+
+
                 } else {
                     displayError()
                 }
             }
         }
     }
+
     private fun tracklocation(){
         if (ActivityCompat.checkSelfPermission (requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -138,8 +179,12 @@ class FoodFragment : Fragment(),
     }
 
     override fun displayResults(response: BusinessResponse?) {
+
         response?.let {
+
             setupRecyclerView(it.businesses)
+
+
         }
         hideLoader()
     }
@@ -160,4 +205,7 @@ class FoodFragment : Fragment(),
         )
         adapter.notifyDataSetChanged()
     }
+
+
 }
+

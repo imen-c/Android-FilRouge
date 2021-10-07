@@ -9,4 +9,6 @@ data class BusinessResponse(
     val regionModel: RegionModel,
     @SerializedName("total")
     val total: Int
-)
+) {
+
+}

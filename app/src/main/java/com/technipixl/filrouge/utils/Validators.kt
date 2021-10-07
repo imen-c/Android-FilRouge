@@ -22,11 +22,12 @@ class Validators {
             val isEmailValid = isEmailValid(email)
             val isPasswordValid = isPasswordValid(password)
 
-            return if(isEmailValid && isPasswordValid) {
+           return if(isEmailValid && isPasswordValid) {
                 Validators.LoginValidity.VALID
             } else {
                 Validators.LoginValidity.ERROR
-            }
+           }
+
         }
 
         fun isEmailValid(email: String?): Boolean {
