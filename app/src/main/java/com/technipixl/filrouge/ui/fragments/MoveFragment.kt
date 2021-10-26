@@ -20,7 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.technipixl.filrouge.R
-import com.technipixl.filrouge.databinding.FragmentFoodBinding
+
 import com.technipixl.filrouge.databinding.FragmentMoveBinding
 import com.technipixl.filrouge.network.models.BusinessModel
 import com.technipixl.filrouge.network.models.BusinessResponse
@@ -99,7 +99,7 @@ class MoveFragment : Fragment() ,  NetworkFragment<BusinessResponse>,
     }
 
     override fun displayDetail(model: BusinessModel) {
-        val direction = FoodFragmentDirections.actionFoodFragmentToBusinessDetailFragment(model)
+        val direction = MoveFragmentDirections.actionMoveFragmentToBusinessDetailFragment(model)
         findNavController().navigate(direction)
     }
 

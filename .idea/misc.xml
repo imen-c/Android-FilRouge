@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/fragment_food.xml" value="0.1514690982776089" />
+        <entry key="app/src/main/res/drawable/business_rounded_background.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/button_background_selector.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/button_rounded_background.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/button_rounded_background_disabled.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/custom_ripple_effect.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/input_rounded_background.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/input_square_rounded_background.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/login_rounded_background.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/tab_indicator_default.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/tab_indicator_selected.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/drawable/tab_selector.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_business_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_food.xml" value="0.10429447852760736" />
         <entry key="app/src/main/res/layout/fragment_move.xml" value="0.1" />
       </map>
     </option>
