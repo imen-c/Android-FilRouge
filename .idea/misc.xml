@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/drawable/tab_indicator_default.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/drawable/tab_indicator_selected.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/drawable/tab_selector.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/fragment_business_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_business_detail.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_food.xml" value="0.10429447852760736" />
         <entry key="app/src/main/res/layout/fragment_move.xml" value="0.1" />
       </map>
