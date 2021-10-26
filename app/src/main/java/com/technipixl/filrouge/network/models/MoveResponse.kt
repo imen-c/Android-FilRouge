@@ -7,7 +7,7 @@ data class MoveResponse(
     @SerializedName("businesses")
     val businesses: List<MoveBusinessModel>?,
     @SerializedName("region")
-    val region: Region?,
+    val region: RegionModel?,
     @SerializedName("total")
     val total: Int?
 )

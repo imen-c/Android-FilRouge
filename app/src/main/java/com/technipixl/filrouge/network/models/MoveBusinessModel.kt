@@ -10,7 +10,7 @@ data class MoveBusinessModel(
     @SerializedName("categories")
     val categories: List<Locale.Category>?,
     @SerializedName("coordinates")
-    val coordinates: Coordinates?,
+    val coordinates: CoordinatesModel?,
     @SerializedName("display_phone")
     val displayPhone: String?,
     @SerializedName("distance")
@@ -22,7 +22,7 @@ data class MoveBusinessModel(
     @SerializedName("is_closed")
     val isClosed: Boolean?,
     @SerializedName("location")
-    val location: Location?,
+    val location: LocationModel?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("phone")

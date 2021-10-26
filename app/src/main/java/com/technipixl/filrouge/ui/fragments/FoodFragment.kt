@@ -51,11 +51,13 @@ class FoodFragment : Fragment(),
 
         tracklocation()
         val base = LatLng(50.59,5.56)
-
+        //val  maxZoom : Float = 15.0f
         //googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
         //CameraUpdateFactory.newLatLngZoom(base, 16f)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(base))
-        googleMap.setMaxZoomPreference(15.0f)
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(base,10.0f))
+        //googleMap.setMinZoomPreference(15.0f)
+       // googleMap.setMaxZoomPreference(3.0f)
+
 
     }
 
@@ -181,9 +183,7 @@ class FoodFragment : Fragment(),
     override fun displayResults(response: BusinessResponse?) {
 
         response?.let {
-
             setupRecyclerView(it.businesses)
-
 
         }
         hideLoader()
