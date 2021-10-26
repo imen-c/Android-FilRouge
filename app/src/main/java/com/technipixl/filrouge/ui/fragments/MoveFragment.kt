@@ -5,28 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.GoogleMap
 import com.technipixl.filrouge.R
+import com.technipixl.filrouge.databinding.FragmentFoodBinding
+import com.technipixl.filrouge.databinding.FragmentMoveBinding
+import com.technipixl.filrouge.network.models.BusinessModel
+import com.technipixl.filrouge.network.models.BusinessResponse
+import com.technipixl.filrouge.network.services.BusinessServiceImpl
+import com.technipixl.filrouge.ui.adapters.BusinessAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MoveFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MoveFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MoveFragment : Fragment() ,  NetworkFragment<BusinessResponse>,
+    ListFragment<BusinessModel, BusinessAdapter>{
+    private lateinit var map : GoogleMap
+    private var binding: FragmentMoveBinding? = null
+    private val service by lazy { BusinessServiceImpl() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -39,22 +36,45 @@ class MoveFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MoveFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MoveFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
+    }
+
+    override var adapter: BusinessAdapter
+        get() = TODO("Not yet implemented")
+        set(value) {}
+
+    override fun setupRecyclerView(models: List<BusinessModel>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayDetail(model: BusinessModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadData() {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayError() {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayResults(response: BusinessResponse?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayLoader() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideLoader() {
+        TODO("Not yet implemented")
     }
 }

@@ -47,11 +47,15 @@ class HomeFragment : Fragment(), HomeCardFragment.HomeCardClickListener {
     }
 
     override fun onCardClicked(menuIndex: Int) {
+        Log.d("CLICK","click sur card")
         when (menuIndex) {
+
             1 -> findNavController().navigate(R.id.foodFragment)
             2 -> findNavController().navigate(R.id.funFragment)
             3 -> findNavController().navigate(R.id.moveFragment)
+
         }
+
     }
 
     private fun setupViewPager() {
